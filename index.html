@@ -33,7 +33,7 @@
     const outputDiv = document.getElementById('pushMsgs');
 
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/scs/firebase-messaging-sw.js', { scope: '/scs/' })
+      navigator.serviceWorker.register('https://lognad.github.io/scs/firebase-messaging-sw.js', { scope: 'https://lognad.github.io/scs/' })
         .then((reg) => {
           // registration worked
           console.log('Registration succeeded. Scope is ' + reg.scope);
