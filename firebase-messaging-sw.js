@@ -11,25 +11,27 @@ firebase.initializeApp({
   measurementId: 'G-FR5R5J79CE'
 });
 const messaging = firebase.messaging();
-messaging.requestPermission()
-  .then(function () {
-    console.log('got permission');
-    return messaging.getToken();
-  })
-  .then(function (token) {
-    console.log(token)
-  })
-  .catch(function (err) {
-    console.log('Error occurred', err)
-  })
+// messaging.requestPermission()
+//   .then(function () {
+//     console.log('got permission');
+//     return messaging.getToken();
+//   })
+//   .then(function (token) {
+//     console.log(token)
+//   })
+//   .catch(function (err) {
+//     console.log('Error occurred', err)
+//   })
 
-messaging.onMessage(function (payload) {
-  console.log('onMessage', payload)
-})
+// messaging.onMessage(function (payload) {
+//   console.log('onMessage', payload)
+// })
 messaging.setBackgroundMessageHandler(function (payload) {
-  const title = "testing";
+  console.log('background',payload)
+  const title = "testing background";
   const options = {
     body: "hello there"
   }
+  // new Notification(title, options)
   return self.registration.showNotification(title, options)
 })
