@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>CovidApp</title>
@@ -8,43 +9,57 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#1976d2">
-<link rel="stylesheet" href="styles.09e2c710755c8867a460.css"></head>
+  <link rel="stylesheet" href="styles.09e2c710755c8867a460.css">
+</head>
+
 <body>
-<app-root></app-root>
-<noscript>Please enable JavaScript to continue using this application.</noscript>
-<script src="runtime-es2015.c5fa8325f89fc516600b.js" type="module"></script><script src="runtime-es5.c5fa8325f89fc516600b.js" nomodule defer></script><script src="polyfills-es5.3e8196928d184a6e5319.js" nomodule defer></script><script src="polyfills-es2015.5b10b8fd823b6392f1fd.js" type="module"></script><script src="main-es2015.27a9f1934e674bdbc65d.js" type="module"></script><script src="main-es5.27a9f1934e674bdbc65d.js" nomodule defer></script>
+  <div id="tokenId"></div>
+  <div id="pushMsgs"></div>
+  <app-root></app-root>
+  <noscript>Please enable JavaScript to continue using this application.</noscript>
+  <script src="runtime-es2015.c5fa8325f89fc516600b.js" type="module"></script>
+  <script src="runtime-es5.c5fa8325f89fc516600b.js" nomodule defer></script>
+  <script src="polyfills-es5.3e8196928d184a6e5319.js" nomodule defer></script>
+  <script src="polyfills-es2015.5b10b8fd823b6392f1fd.js" type="module"></script>
+  <script src="main-es2015.27a9f1934e674bdbc65d.js" type="module"></script>
+  <script src="main-es5.27a9f1934e674bdbc65d.js" nomodule defer></script>
 
 
-<script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-messaging.js"></script>
-<script>
+  <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-messaging.js"></script>
+  <script>
 
-firebase.initializeApp({
-  apiKey: 'AIzaSyAu2gbxDgP9lJPsnu67gGutXc4mRmiCr3k',
-  authDomain: 'scs-covid-app.firebaseapp.com',
-  databaseURL: 'https://scs-covid-app.firebaseio.com',
-  projectId: 'scs-covid-app',
-  storageBucket: 'scs-covid-app.appspot.com',
-  messagingSenderId: '839644895228',
-  appId: '1:839644895228:web:ea3a43946969bbe5f60479',
-  measurementId: 'G-FR5R5J79CE'
-});
-const messaging = firebase.messaging();
-messaging.requestPermission()
-  .then(function () {
-    console.log('got permission');
-    return messaging.getToken();
-  })
-  .then(function (token) {
-    console.log(token)
-  })
-  .catch(function (err) {
-    console.log('Error occurred', err)
-  })
+    const outputDiv = document.getElementById('pushMsgs');
 
-messaging.onMessage(function (payload) {
-  console.log('onMessage', payload)
-})
-</script>
+    firebase.initializeApp({
+      apiKey: 'AIzaSyAu2gbxDgP9lJPsnu67gGutXc4mRmiCr3k',
+      authDomain: 'scs-covid-app.firebaseapp.com',
+      databaseURL: 'https://scs-covid-app.firebaseio.com',
+      projectId: 'scs-covid-app',
+      storageBucket: 'scs-covid-app.appspot.com',
+      messagingSenderId: '839644895228',
+      appId: '1:839644895228:web:ea3a43946969bbe5f60479',
+      measurementId: 'G-FR5R5J79CE'
+    });
+    const messaging = firebase.messaging();
+    messaging.requestPermission()
+      .then(function () {
+        console.log('got permission');
+        return messaging.getToken();
+      })
+      .then(function (token) {
+        console.log(token)
+        document.getElementById('tokenId').innerHTML = token;
+      })
+      .catch(function (err) {
+        console.log('Error occurred', err)
+      })
+
+    messaging.onMessage(function (payload) {
+      console.log('onMessage', payload)
+      outputDiv.innerHTML += '<br />' + JSON.stringify(payload.data);
+    })
+  </script>
 </body>
+
 </html>
