@@ -16,14 +16,14 @@
 <body>
   <div id="tokenId"></div>
   <div id="pushMsgs"></div>
-  <app-root></app-root>
+  <!-- <app-root></app-root> -->
   <noscript>Please enable JavaScript to continue using this application.</noscript>
-  <script src="runtime-es2015.c5fa8325f89fc516600b.js" type="module"></script>
+  <!-- <script src="runtime-es2015.c5fa8325f89fc516600b.js" type="module"></script>
   <script src="runtime-es5.c5fa8325f89fc516600b.js" nomodule defer></script>
   <script src="polyfills-es5.3e8196928d184a6e5319.js" nomodule defer></script>
   <script src="polyfills-es2015.5b10b8fd823b6392f1fd.js" type="module"></script>
   <script src="main-es2015.27a9f1934e674bdbc65d.js" type="module"></script>
-  <script src="main-es5.27a9f1934e674bdbc65d.js" nomodule defer></script>
+  <script src="main-es5.27a9f1934e674bdbc65d.js" nomodule defer></script> -->
 
 
   <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-app.js"></script>
@@ -31,6 +31,17 @@
   <script>
 
     const outputDiv = document.getElementById('pushMsgs');
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/scs/firebase-messaging-sw.js', { scope: '/scs/' })
+        .then((reg) => {
+          // registration worked
+          console.log('Registration succeeded. Scope is ' + reg.scope);
+        }).catch((error) => {
+          // registration failed
+          console.log('Registration failed with ' + error);
+        });
+    }
 
     firebase.initializeApp({
       apiKey: 'AIzaSyAu2gbxDgP9lJPsnu67gGutXc4mRmiCr3k',
